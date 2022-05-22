@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.20)
+
+project(testprj)
+
+set( LIB_SRC
+    codes/hello.cpp
+)
+
+set( MAIN_SRC
+    codes/main.cpp
+)
+
+#add_library( hello STATIC 
+#    ${LIB_SRC}
+#)
+
+add_library( hello SHARED
+    ${LIB_SRC}
+)
+
+target_compile_definitions( hello
+    PRIVATE
+        BUILD_DLL
+)
+
+add_executable( ${PROJECT_NAME} ${MAIN_SRC} )
+target_compile_definitions( ${PROJECT_NAME}
+    PRIVATE
+        USE_DLL
+)
+target_link_libraries( ${PROJECT_NAME}
+    PRIVATE
+        hello
+)
